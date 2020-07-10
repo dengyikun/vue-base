@@ -9,21 +9,16 @@
 - 组件库：[ElementUI](https://element.eleme.cn/#/zh-CN)、[Ant Design](https://www.antdv.com/docs/vue/introduce-cn/)
 - http 请求：[node-fetch](https://github.com/bitinn/node-fetch)
 
-#### 安装
+## 命令
 
 ```
+# 安装
 npm install
-```
 
-#### 开发
-
-```
+# 开发
 npm run dev
-```
 
-#### 构建
-
-```
+# 构建
 npm run build
 ```
 
@@ -41,6 +36,7 @@ npm run build
     ├── components/              // 组件
     |   ├── antd/                // ant design 配置
     |   └── element/             // element 配置
+    ├── filters/                 // 过滤器
     ├── layouts/                 // 布局
     ├── store/                   // 状态管理
     ├── utils/                   // 工具类
@@ -55,7 +51,8 @@ npm run build
 
 #### 组件
 
-- 使用 babel-plugin-import 解决 element 和 ant design 按需加载问题，注意 babel.config.js 中必须先配置 element 再配置 ant design
+- 使用 babel-plugin-import 解决 element 和 ant design 按需加载问题
+- 建议先安装 element 防止 async-validator 与 ant design 冲突
 - element 和 ant design 使用 Vue.use 方式置入，无需再单独引入
 - 自定义组件使用 Cp 前缀，也使用 Vue.use 方式置入
 - 在 main.js 中早于 new Vue 给 Vue 添加常用的实例方法，例如：moment、lodash 等，注意检查是否与 Vue.use 中所添加的实例方法名冲突
@@ -68,7 +65,7 @@ npm run build
 
 #### 状态管理
 
-- store：只存放公共数据，例如：通用配置信息、用户信息、permission、enum 等
+- store：只存放公共数据，例如：通用配置信息、permission 等
 - action：负责所有数据请求、接口调用等异步业务
 - mutations：更新 store
 
@@ -76,9 +73,26 @@ npm run build
 
 - eslint + prettier
 - package.json 中默认配置 semi: false, singleQuote:true
-- 配置好 file watcher 后可以自动格式化代码
-- 相对路径 @ 在 vue.config.js 中可配置 alias 来指定根路径
-- webstorm 中通过配置项目属性中 webpack 指向 /node_modules/@vue/cli-service/webpack.config.js 可以识别 @ 路径
+- 配置好 file watcher 后可以自动格式化代码，webstorm 配置如下：
+
+```
+Preferences ＞ Tools ＞ File Watchers ＞ add ＞ <custome>
+
+Name: Prettier
+File type: Any
+Program: $ProjectFileDir$/node_modules/.bin/prettier
+Arguments: --write $FilePathRelativeToProjectRoot$
+Output paths to refresh: $FilePathRelativeToProjectRoot$
+Working directory: $ProjectFileDir$
+```
+
+- 相对路径 @ 在 vue.config.js 中可配置 alias 来指定根路径，webstorm 配置如下：
+
+```
+Preferences ＞ Languages & Frameworks ＞ JavaScript ＞ Webpack
+
+webpack configuration file: /node_modules/@vue/cli-service/webpack.config.js
+```
 
 #### 命名
 
